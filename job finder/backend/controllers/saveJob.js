@@ -1,7 +1,10 @@
 import job from '../models/saveJob.js';
 
 export const saveJob = async (req, res) => {
-    const jobData = req.body;
+    const jobData = {
+        email: req.body.email,
+        job: req.body.job
+    };
     const newJob = new job(jobData);
 
     try{
@@ -15,7 +18,7 @@ export const saveJob = async (req, res) => {
 export const savedJob = async (req, res) => {
     try{
         const jobData = await job.find({
-            userEmail: req.body.userEmail
+            email: req.body.email
         });
 
         if(jobData){

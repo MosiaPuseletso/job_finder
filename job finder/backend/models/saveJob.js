@@ -1,12 +1,12 @@
 import mongoose from 'mongoose';
 
 const saveJobSchema = mongoose.Schema({
-    userEmail: {
+    email: {
         type: String,
         required: true
     },
     job: {
-        type: String,
+        type: JSON,
         required: true
     },
     created: {
@@ -15,6 +15,6 @@ const saveJobSchema = mongoose.Schema({
     },
 });
 
-const job = mongoose.model('savedJobs', saveJobSchema);
+const job = mongoose.model('jobFinder_savedJobs', saveJobSchema);
 
 export default job;

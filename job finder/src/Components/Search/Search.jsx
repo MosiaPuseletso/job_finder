@@ -1,47 +1,48 @@
 import React from "react";
 import { useDispatch } from 'react-redux';
 
-import { sortJobs } from "../../Actions/jobs";
-
-const Search = ({jobs, setJob, savedJob, setSavedJob}) => {
-
+const Search = ({jobs, updateJobs}) => {
     const dispatch = useDispatch();
-    const selectValue = document.getElementById('relevance');
+
+    let tempJobs = [...jobs];
     
     const sortJob = () => {
-        switch(selectValue.value){
+        switch(document.getElementById('relevance').value){
             case 'Latest':
-                jobs.sort((a, b) => {
+                tempJobs.sort((a, b) => {
                     return parseFloat(a.created_at) - parseFloat(b.created_at);
                 });
-                setJob({data: jobs});
-                console.log(savedJob);
+                dispatch(updateJobs(tempJobs));
+                // setJob({data: jobs});
+                // console.log(savedJob);
                 break;
             case 'Remote':
-                jobs.sort((a, b) => {
+                tempJobs.sort((a, b) => {
                     return (a.remote === b.remote) ? 0 : a.remote ? -1 : 1;
                 });
-                setJob({data: jobs});
-                savedJob[0].sort((a, b) => {
-                    let aJob = JSON.parse(a.job);
-                    let bJob = JSON.parse(b.job);
+                dispatch(updateJobs(tempJobs));
+                // setJob({data: jobs});
+                // savedJob[0].sort((a, b) => {
+                //     let aJob = JSON.parse(a.job);
+                //     let bJob = JSON.parse(b.job);
 
-                    return (aJob.remote === bJob.remote) ? 0 : aJob.remote ? -1 : 1;
-                });
-                setSavedJob(savedJob);
+                //     return (aJob.remote === bJob.remote) ? 0 : aJob.remote ? -1 : 1;
+                // });
+                // setSavedJob(savedJob);
                 break;
             case 'On-Site':
-                jobs.sort((a, b) => {
+                tempJobs.sort((a, b) => {
                     return (a.remote === b.remote) ? 0 : b.remote ? -1 : 1;
                 });
-                setJob({data: jobs});
-                savedJob[0].sort((a, b) => {
-                    let aJob = JSON.parse(a.job);
-                    let bJob = JSON.parse(b.job);
+                dispatch(updateJobs(tempJobs));
+                // setJob({data: jobs});
+                // savedJob[0].sort((a, b) => {
+                //     let aJob = JSON.parse(a.job);
+                //     let bJob = JSON.parse(b.job);
 
-                    return (aJob.remote === bJob.remote) ? 0 : bJob.remote ? -1 : 1;
-                });
-                setSavedJob(savedJob);
+                //     return (aJob.remote === bJob.remote) ? 0 : bJob.remote ? -1 : 1;
+                // });
+                // setSavedJob(savedJob);
                 break;
         }
     }
